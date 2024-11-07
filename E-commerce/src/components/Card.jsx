@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import { addToCart,removeFromCart} from '../Slices/CartSlice'
+import { AddToWishlist } from '../Slices/WishlistSlice'
 
 // const products = [
 //   {
@@ -25,10 +26,26 @@ export default function Card({
   image,
 }) {
 
-  // const Dispatch = useDispatch()
-  // const cartItems = useSelector()
+  const Dispatch = useDispatch()
+  const cartItems = useSelector((state) => state.cart.items);
 
-  // const handleAddToCart = ()
+  const handleAddToCart = () => {
+    Dispatch(addToCart({
+      id,
+      title,
+      price,
+      image,
+    }));
+  }
+
+  const handleWishlist = () => {
+    Dispatch(AddToWishlist({
+      id,
+      title,
+      price,
+      image,
+    }))
+  }
 
   return (
     <div className="bg-white">
@@ -61,10 +78,10 @@ export default function Card({
           </div>
           
           <div className='py-2 gap-2 flex flex-col justify-around'>
-          <button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+          <button onClick={handleAddToCart} className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
             Add to Cart
           </button>
-          <button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+          <button onClick={handleWishlist} className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
             Wishlist
           </button>
           </div>

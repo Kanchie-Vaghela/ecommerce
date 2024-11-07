@@ -14,11 +14,14 @@ import ProfilePage from './Pages/ProfilePage.jsx'
 import Layout from './Layout.jsx'
 import Footer from './Components/Footer.jsx'
 import ProductDetails from './Pages/ProductDetails.jsx'   
+import { Provider } from 'react-redux'
+import store from './Store/Store.js'
 
 
 function App() {
 
   return (
+    <Provider store={store}>
     <Router>
         <AuthProvider>
         <Header/>
@@ -38,6 +41,7 @@ function App() {
           <Footer/>
         </AuthProvider>
     </Router>
+    </Provider>
   )
 }
 
