@@ -1,7 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../utils/AuthContext";
 
 const Header = () => {
+  const Navigate = useNavigate()
+  const {user, LogoutUser} = useAuth()
+
   return (
     <div className="navbar bg-black px-4 text-white m-0 h-20">
       <div className="flex-1">
@@ -9,6 +13,11 @@ const Header = () => {
           <li className="mb-3">
             <Link to="/" className="hover:underline px-3">
               Logo
+            </Link>
+          </li>
+          <li className="mb-3">
+            <Link to="/products" className="hover:underline px-3">
+              Products
             </Link>
           </li>
         </ul>
@@ -74,16 +83,27 @@ const Header = () => {
         </div>
         <div className="flex-1">
           <ul className="text-white font-medium text-xl mt-6 flex flex-row ">
-            <li className="mb-4">
-              <Link to="Login" className="hover:underline px-2">
-                Login
-              </Link>
-            </li>
-            <li className="mb-4">
-              <Link to="Signup" className="hover:underline px-4">
-                Signup
-              </Link>
-            </li>
+            {user ? (
+              <li className="mb-4">
+                <Link onClick={LogoutUser} className="hover:underline px-4" >
+                  Logout
+                </Link>
+              </li>
+            ) : (
+              <>
+                <li className="mb-4">
+                  <Link to="Login" className="hover:underline px-2">
+                    Login
+                  </Link>
+                </li>
+                <li className="mb-4">
+                  <Link to="Signup" className="hover:underline px-4">
+                    Signup
+                  </Link>
+                </li>
+              </>
+            )
+            }
           </ul>
         </div>
       </div>
